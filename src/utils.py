@@ -1,4 +1,12 @@
+#!/usr/bin/env python
+"""
+data util functions
+"""
+
 import pandas as pd
+
+__author__ = "Usman Ahmad"
+__version__ = "1.0.1"
 
 
 def read_data(filename: str = r"data\input\energy.dat") -> pd.DataFrame:

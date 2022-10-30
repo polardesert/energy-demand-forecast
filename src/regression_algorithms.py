@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+"""
+Regression ML algos
+"""
+
 import pandas as pd
 import numpy as np
 from sklearn import svm
@@ -117,7 +122,7 @@ def validate_inputs(
         data: pd.DataFrame,
         target: str,
         pred_range: int
-):
+) -> None:
     """
 
     :param pred_range:

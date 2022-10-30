@@ -1,7 +1,11 @@
+#!/usr/bin/env python
+"""
+Plot functions
+"""
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as m_dates
-from typing import List, Optional
 
 __author__ = "Usman Ahmad"
 __version__ = "1.0.1"
@@ -13,6 +17,7 @@ def line_plot_date(
         y_ax: list,
         title: str,
         labels: tuple,
+        output: str,
         markers=None,  # dict of tuples: [ (col_name, marker), ... ]
         date_grid_major="y",  # y = years, m = months, d = days
         date_grid_minor="m",  # y = years, m = months, d = days
@@ -20,7 +25,7 @@ def line_plot_date(
         fig_size=(10, 5),
         legend=True,
         vertical_marker=False
-):
+) -> None:
     df = idf.copy()
     df.reset_index(inplace=True)
     df[x_ax] = pd.to_datetime(df[x_ax])
@@ -74,8 +79,8 @@ def line_plot_date(
         )
 
     fig.autofmt_xdate()
-
-    plt.show()
+    if output is not None:
+        plt.savefig(output, bbox_inches='tight')
 
 
 def line_plot(
@@ -85,7 +90,7 @@ def line_plot(
         title: str,
         labels: tuple,
         fig_size=(10, 5)
-):
+) -> None:
     fig, ax = plt.subplots(figsize=fig_size)
     for _y_ax in y_ax:
         ax.plot(x_ax, _y_ax, data=df)
