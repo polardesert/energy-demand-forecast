@@ -5,7 +5,10 @@ from sklearn.linear_model import LinearRegression, Lasso, Ridge, ElasticNet  #
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
-from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor, VotingRegressor
+from sklearn.ensemble import (
+    RandomForestRegressor, GradientBoostingRegressor,
+    VotingRegressor, HistGradientBoostingRegressor
+)
 from typing import Optional, List, Tuple
 from typing import Dict, Any
 
@@ -28,17 +31,23 @@ algo_map = {
     'svr_poly_auto_lerr_coef': svm.SVR(kernel="poly", gamma='auto', C=0.1, coef0=1),
     'svr_poly_scale_lerr_coef': svm.SVR(
         kernel="poly", gamma='scale', C=0.1, coef0=1
-        ),
+    ),
     'lasso': Lasso(alpha=0.1),
     'elasticnet': ElasticNet(random_state=0),
     'ridge': Ridge(alpha=0.5),
     'randomforest_0': RandomForestRegressor(max_depth=2, random_state=0),
     'grad_boost_0': GradientBoostingRegressor(random_state=0),
+    'grad_boost_0_LR': GradientBoostingRegressor(random_state=0, learning_rate=.01),
+    'hist_grad_boost_0': HistGradientBoostingRegressor(random_state=0),
+    'hist_grad_boost_0_LR': HistGradientBoostingRegressor(
+        random_state=0,
+        learning_rate=.01
+        ),
     'randomforest_1': RandomForestRegressor(max_depth=2, random_state=1),
     'grad_boost_1': GradientBoostingRegressor(random_state=1),
     'vote_0': None,
     'vote_1': None,
-    'vote_c': None
+    'vote_c': None,
 }
 
 
@@ -49,7 +58,7 @@ def run_reg_pred(
         fill_na: bool = False,
         algo_name: str = "lin_reg",
         test_size: float = 0.2,
-        voting_params: Optional[List[Tuple]] = None
+        voting_params: Optional[List[Tuple]] = None,
 ) -> Dict[str, Any]:
     """
     run regression prediction on data_regression

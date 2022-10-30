@@ -13,8 +13,7 @@ def line_plot_date(
         y_ax: list,
         title: str,
         labels: tuple,
-        y2_ax: Optional[List] = None,
-        markers=None,  # list of tuples: [ (col_name, marker), ... ]
+        markers=None,  # dict of tuples: [ (col_name, marker), ... ]
         date_grid_major="y",  # y = years, m = months, d = days
         date_grid_minor="m",  # y = years, m = months, d = days
         date_format="%Y-%m",
@@ -33,15 +32,8 @@ def line_plot_date(
     years_fmt = m_dates.DateFormatter(date_format)
 
     fig, ax = plt.subplots(figsize=fig_size)
-    if y2_ax is not None:
-        ax2 = ax.twinx()
-
     for _y_ax in y_ax:
         ax.plot(x_ax, _y_ax, data=df)
-
-    if y2_ax is not None:
-        for _y2_ax in y2_ax:
-            ax2.plot(x_ax, _y2_ax, data=df)
 
     # plot markers
     markers = {} if markers is None else markers
@@ -83,10 +75,7 @@ def line_plot_date(
 
     fig.autofmt_xdate()
 
-    plt_obj = plt.gcf()
     plt.show()
-
-    return plt_obj
 
 
 def line_plot(
